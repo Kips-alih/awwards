@@ -26,4 +26,12 @@ class Profile(models.Model):
         return profile
 
     def _str_(self):
-        return self.user.username     
+        return self.user.username 
+
+    class Project(models.Model):
+        title = models.CharField(max_length=100)
+        image = CloudinaryField("image")
+        description = models.TextField()
+        link = models.URLField(blank=True)
+        user = models.ForeignKey(User, on_delete=models.CASCADE)
+        date = models.DateTimeField(auto_now_add=True, null=True)
