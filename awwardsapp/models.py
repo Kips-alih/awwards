@@ -25,13 +25,30 @@ class Profile(models.Model):
         profile = Profile.objects.filter(user=id).first()
         return profile
 
-    def _str_(self):
+    def __str__(self):
         return self.user.username 
 
-    class Project(models.Model):
-        title = models.CharField(max_length=100)
-        image = CloudinaryField("image")
-        description = models.TextField()
-        link = models.URLField(blank=True)
-        user = models.ForeignKey(User, on_delete=models.CASCADE)
-        date = models.DateTimeField(auto_now_add=True, null=True)
+class Project(models.Model):
+    title = models.CharField(max_length=100)
+    image = CloudinaryField("image")
+    description = models.TextField()
+    link = models.URLField(blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    pub_date = models.DateTimeField(auto_now_add=True, null=True)
+
+    def save_project(self):
+        self.save()
+
+    def delete_project(self):
+        self.delete()
+
+    @classmethod
+    def search_by_title(cls, search_term):
+        images = cls.objects.filter(title__icontains=search_term)
+        return images    
+
+    def str(self):
+        return self.user.username
+
+    
+    
