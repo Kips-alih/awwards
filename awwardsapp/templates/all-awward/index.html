@@ -2,4 +2,27 @@
 
 {% block content %}
 {{block.super}}
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6">
+      {% for project in projects %}
+      <div class="card-group">
+        <div class="card">
+          <img class="card-img-top img-responsive" src="{{project.image.url}}" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">{{project.title}}</h5>
+            <p class="card-text">{{project.description}}</p>
+            <button><a href="{{project.link}}">Project Link</a></button>
+
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">{{project.pub_date}}</small>
+          </div>
+        </div>
+    </div>
+    {% endfor %}
+  </div>
+  </div>
+</div>
 {% endblock %}
