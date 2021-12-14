@@ -19,6 +19,8 @@
           <div class="card-footer">
             <small class="text-muted">{{project.pub_date}}</small>
           </div>
+          <p><i><a href="{% url 'project_review' project.id %}">Reviews</a></i></p>
+
         </div>
     </div>
     {% endfor %}
