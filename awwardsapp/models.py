@@ -50,5 +50,20 @@ class Project(models.Model):
     def str(self):
         return self.user.username
 
-    
+class Review(models.Model):
+    review = models.CharField(max_length=200)
+    posted_on = models.DateTimeField(auto_now_add=True, null=True)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    user= models.ForeignKey(User, on_delete=models.CASCADE)
+
+class Rating(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    design_rate = models.IntegerField(default=0, blank=True, null=True)
+    usability_rate = models.IntegerField(default=0, blank=True, null=True)
+    content_rate = models.IntegerField(default=0, blank=True, null=True)
+    average = models.IntegerField(default=0, blank=True, null=True)
+
+    def str(self):
+        return self.user.username   
     
