@@ -5,26 +5,20 @@
 
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-6">
       {% for project in projects %}
-      <div class="card-group">
-        <div class="card">
-          <img class="card-img-top img-responsive" src="{{project.image.url}}" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">{{project.title}}</h5>
-            <p class="card-text">{{project.description}}</p>
+      <div class="col-md-4">
+            
+        <div class="card mb-4">
+            <h4 class="text-center">{{project.title}}</h4>
+            <img src="{{ project.image.url }}" class="img-responsive" alt="Image">
+            <p>{{project.description}}</p>
             <button><a href="{{project.link}}">Project Link</a></button>
-
-          </div>
-          <div class="card-footer">
             <small class="text-muted">{{project.pub_date}}</small>
-          </div>
-          <p><i><a href="{% url 'project_review' project.id %}">Reviews</a></i></p>
+            <p><i><a href="{% url 'project_review' project.id %}">Reviews</a></i></p>
 
         </div>
-    </div>
-    {% endfor %}
-  </div>
+      </div>
+      {% endfor %}
   </div>
 </div>
 {% endblock %}

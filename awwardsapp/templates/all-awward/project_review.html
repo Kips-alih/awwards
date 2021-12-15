@@ -10,7 +10,7 @@
             <div class="col-md-8">
                 <p><strong>Title:</strong> {{project.title}}</p>
                 <p><strong>Project Description:</strong>{{ project.description|safe }}</p>
-                <p>{{ project.pub_date|date }}</p>
+                <p><strong>Date posted:</strong>{{ project.pub_date|date }}</p>
             </div>
     </div>
     <section style="height: 90vh; background-repeat: no-repeat;background-size: cover;background-position: center; background-image: url({{project.image.url}})">
