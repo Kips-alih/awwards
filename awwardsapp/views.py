@@ -30,7 +30,7 @@ def profile(request):
     profile = Profile.objects.filter(user_id=current_user.id).first()
     project = Project.objects.filter(user_id=current_user.id)
     if request.method == 'POST':
-        form = ProfileForm(request.POST, request.FILES)
+        form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
         if form.is_valid():
             profile = form.save(commit=False)
             profile.user = current_user
@@ -38,7 +38,7 @@ def profile(request):
         return HttpResponseRedirect('/')
 
     else:
-        form = ProfileForm()
+        form = ProfileForm(instance=request.user.profile)
     return render(request, 'all-awward/profile.html', {"form":form,'projects':project,'profile':profile})
 @login_required(login_url='/accounts/login/')
 def new_project(request):
