@@ -5,6 +5,13 @@ from django.http  import HttpResponse
 from django.contrib.auth.decorators import login_required
 from awwardsapp.models import Profile,Project,Review,Rating
 from .forms import ProfileForm,NewProjectForm,ReviewForm
+from django.http import JsonResponse
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .models import  Project
+from .serializer import ProjectSerializer
+from rest_framework import status
+from .permissions import IsAdminOrReadOnly
 
 
 
@@ -86,14 +93,7 @@ def rate(request,id):
         design_rate = request.POST['design']
         content_rate = request.POST['content']
         usability_rate = request.POST['usability']
-
-        Rating.objects.create(
-            project=project,
-            user=current_user,
-            design_rate=design_rate,
-            usability_rate=usability_rate,
-            content_rate=content_rate,
-            average=round((float(design_rate)+float(usability_rate)+float(content_rate))/3,2),)
+        Rating.objects.create(project=project,user=current_user,design_rate=design_rate,usability_rate=usability_rate,content_rate=content_rate,average=round((float(design_rate)+float(usability_rate)+float(content_rate))/3,2),)
 
         return render(request,"all-awward/project_review.html",{"project":project})
     else:
@@ -104,3 +104,17 @@ def project_review(request, project_id):
     project = Project.objects.get(id=project_id)
     rating = Rating.objects.filter(project = project)
     return render(request, "all-awward/project_review.html", {"project": project, 'rating':rating})
+
+class ProjectList(APIView):
+    permission_classes = (IsAdminOrReadOnly,)
+    def get(self,request,format=None):
+        projects = Project.objects.all()
+        serializer = ProjectSerializer(projects,many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializers = ProjectSerializer(data=request.data)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data, status=status.HTTP_201_CREATED)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
