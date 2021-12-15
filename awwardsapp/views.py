@@ -18,7 +18,7 @@ from .permissions import IsAdminOrReadOnly
 
 
 # Create your views here.
-@login_required(login_url='/accounts/login/')
+# @login_required(login_url='/accounts/login/')
 def index(request):
     project = Project.objects.all().order_by('-id')
 
@@ -100,6 +100,7 @@ def rate(request,id):
         project = Project.objects.get(id = id) 
         return render(request,"all-awward/project.html",{"project":project})
 
+@login_required(login_url='/accounts/login/')
 def project_review(request, project_id):
     project = Project.objects.get(id=project_id)
     rating = Rating.objects.filter(project = project)

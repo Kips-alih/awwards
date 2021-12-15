@@ -1,4 +1,4 @@
-# The Awwards2021
+# The MoAwwards2021
 
 ## By [Alphonce Kipngeno](https://github.com/Kips-alih) ,December 2021
 
@@ -18,25 +18,31 @@ The application will allow a user to post a project he/she has created and get i
 
 * Run `pip install -r requirements.txt` to Install the requirements.
 
+### Testing the application
+
+* Setup the database name,user, password and host.
+* Make migrations using the command `Python manage.py makemigrations`
+* Then migrate the changes using the command `Python manage.py migrate`
+* Then test the application by running the command `Python manage.py test`
+
+### Running the application
+
+* Run `Python manage.py runserver`
+
 ## User Stories
 
 Here are some user stories:
 
 * Sign up and login to the application.
-* Post images in the application.
-* Click on a single photo to expand it and also view the details of the photo.
-* Search for different images
-* View my photos on the profile page.
-* Like and comment on images posted by other users.
-
-### To run this application
-
- Click the link.
+* Post and review Projects in the application.
+* View a project through a live link.
+* Search for different projects by their titles.
+* View my projects on the profile page.
 
 ## Technologies used
 
 * Python3.8
-* Django3.2
+* Django2.2.4
 
 ## Support and contact details
 
